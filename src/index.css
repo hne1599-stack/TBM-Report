@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #F1F5F9;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* ============================= */
+/* ✅ PDF 핵심 설정 (제일 중요) */
+/* ============================= */
+
+/* PDF export 모드 */
+body.pdf-exporting {
+  width: 800px !important;
+  min-width: 800px !important;
+  overflow: visible !important;
+  line-height: 1.5 !important;
+}
+
+/* 🔥 모든 요소 리셋 제거 (텍스트 깨짐 방지) */
+/* .pdf-exporting * 제거 */
+
+/* 대신 필요한 것만 제어 */
+.pdf-exporting p,
+.pdf-exporting li {
+  break-inside: avoid;
+}
+
+/* 리스트 스타일 복구 */
+.pdf-exporting ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.pdf-exporting li {
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+/* 문단 스타일 복구 */
+.pdf-exporting p {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* 줄바꿈 유지 */
+.pdf-exporting {
+  white-space: normal;
+}
+
+/* 🔥 실제 분할 방지 대상 (핵심) */
+.report-section,
+.pdf-section,
+.pdf-no-break {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+
+  display: block !important;   /* 🔥 inline-block 제거 (오히려 버그 원인) */
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* 🔥 섹션 스타일 (너 UI 유지) */
+.report-section {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #eaf2ff;
+  border-radius: 8px;
+}
+
+/* 🔥 제목 줄 잘림 방지 */
+.report-section h1,
+.report-section h2,
+.report-section h3 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* 🔥 문단 쪼개짐 방지 */
+.report-section p {
+  break-inside: avoid;
+}
+
+/* ============================= */
+/* ❗ 기존 문제 유발 코드 수정 */
+/* ============================= */
+
+/* ❌ inline-block 제거 (이게 페이지 잘림 원인 중 하나였음) */
+/*
+.pdf-no-break {
+  display: inline-block;
+}
+*/
+
+/* 테이블 안정화 */
+.pdf-exporting table,
+.pdf-exporting th,
+.pdf-exporting td {
+  vertical-align: middle !important;
+  line-height: normal !important;
+}
+
+/* 테이블 패딩 */
+.pdf-exporting th,
+.pdf-exporting td {
+  padding-top: 4px !important;
+  padding-bottom: 8px !important;
+}
+
+/* h3 정렬 (flex 유지 OK) */
+.pdf-exporting h3 {
+  line-height: 1.2 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 스크롤 제거 */
+.pdf-exporting .overflow-x-auto {
+  overflow: visible !important;
+}
+
+/* 컨테이너 */
+.pdf-exporting .report-container {
+  width: 800px !important;
+  min-width: 800px !important;
+  max-width: 800px !important;
+  padding: 0 40px 40px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+}
+
+/* ============================= */
+/* 일반 화면 스타일 유지 */
+/* ============================= */
+
+.report-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 640px) {
+  .report-container {
+    padding: 16px;
+    margin: 10px auto;
+  }
+}
+
+.vibrant-gradient {
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
+}
+
+.risk-table th, .risk-table td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 8px;
+  text-align: center;
+  vertical-align: middle;
+}
